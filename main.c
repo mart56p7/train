@@ -59,5 +59,11 @@ int main() {
         printMessage(msg);
         printMessageTree();
     }
+
+    //convertMessage(newMessage(2, 120));
+    convertMessage(newMessage(30, 60));
+    Byte ca = 30;
+    Byte cb = 60;
+    printf("%un", ca ^ cb);
 }
 

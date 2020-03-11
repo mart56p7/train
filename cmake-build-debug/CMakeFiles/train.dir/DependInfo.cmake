@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "C:/Users/abc/OneDrive/Skole/Semester4/C/train/main.c" "C:/Users/abc/OneDrive/Skole/Semester4/C/train/cmake-build-debug/CMakeFiles/train.dir/main.c.obj"
-  "C:/Users/abc/OneDrive/Skole/Semester4/C/train/motrain.lib.c" "C:/Users/abc/OneDrive/Skole/Semester4/C/train/cmake-build-debug/CMakeFiles/train.dir/motrain.lib.c.obj"
+  "C:/git/train/main.c" "C:/git/train/cmake-build-debug/CMakeFiles/train.dir/main.c.obj"
+  "C:/git/train/motrain.lib.c" "C:/git/train/cmake-build-debug/CMakeFiles/train.dir/motrain.lib.c.obj"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

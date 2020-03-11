@@ -42,10 +42,10 @@ RM = "C:\Program Files\JetBrains\CLion 2019.3.3\bin\cmake\win\bin\cmake.exe" -E 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\abc\OneDrive\Skole\Semester4\C\train
+CMAKE_SOURCE_DIR = C:\git\train
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\abc\OneDrive\Skole\Semester4\C\train\cmake-build-debug
+CMAKE_BINARY_DIR = C:\git\train\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/train.dir/depend.make
@@ -58,29 +58,29 @@ include CMakeFiles/train.dir/flags.make
 
 CMakeFiles/train.dir/main.c.obj: CMakeFiles/train.dir/flags.make
 CMakeFiles/train.dir/main.c.obj: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\abc\OneDrive\Skole\Semester4\C\train\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/train.dir/main.c.obj"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\train.dir\main.c.obj   -c C:\Users\abc\OneDrive\Skole\Semester4\C\train\main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\git\train\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/train.dir/main.c.obj"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\train.dir\main.c.obj   -c C:\git\train\main.c
 
 CMakeFiles/train.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/train.dir/main.c.i"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\abc\OneDrive\Skole\Semester4\C\train\main.c > CMakeFiles\train.dir\main.c.i
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\git\train\main.c > CMakeFiles\train.dir\main.c.i
 
 CMakeFiles/train.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/train.dir/main.c.s"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\abc\OneDrive\Skole\Semester4\C\train\main.c -o CMakeFiles\train.dir\main.c.s
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\git\train\main.c -o CMakeFiles\train.dir\main.c.s
 
 CMakeFiles/train.dir/motrain.lib.c.obj: CMakeFiles/train.dir/flags.make
 CMakeFiles/train.dir/motrain.lib.c.obj: ../motrain.lib.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\abc\OneDrive\Skole\Semester4\C\train\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/train.dir/motrain.lib.c.obj"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\train.dir\motrain.lib.c.obj   -c C:\Users\abc\OneDrive\Skole\Semester4\C\train\motrain.lib.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\git\train\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/train.dir/motrain.lib.c.obj"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\train.dir\motrain.lib.c.obj   -c C:\git\train\motrain.lib.c
 
 CMakeFiles/train.dir/motrain.lib.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/train.dir/motrain.lib.c.i"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\abc\OneDrive\Skole\Semester4\C\train\motrain.lib.c > CMakeFiles\train.dir\motrain.lib.c.i
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\git\train\motrain.lib.c > CMakeFiles\train.dir\motrain.lib.c.i
 
 CMakeFiles/train.dir/motrain.lib.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/train.dir/motrain.lib.c.s"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\abc\OneDrive\Skole\Semester4\C\train\motrain.lib.c -o CMakeFiles\train.dir\motrain.lib.c.s
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\git\train\motrain.lib.c -o CMakeFiles\train.dir\motrain.lib.c.s
 
 # Object files for target train
 train_OBJECTS = \
@@ -96,7 +96,7 @@ train.exe: CMakeFiles/train.dir/build.make
 train.exe: CMakeFiles/train.dir/linklibs.rsp
 train.exe: CMakeFiles/train.dir/objects1.rsp
 train.exe: CMakeFiles/train.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\abc\OneDrive\Skole\Semester4\C\train\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable train.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\git\train\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable train.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\train.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -109,6 +109,6 @@ CMakeFiles/train.dir/clean:
 .PHONY : CMakeFiles/train.dir/clean
 
 CMakeFiles/train.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\abc\OneDrive\Skole\Semester4\C\train C:\Users\abc\OneDrive\Skole\Semester4\C\train C:\Users\abc\OneDrive\Skole\Semester4\C\train\cmake-build-debug C:\Users\abc\OneDrive\Skole\Semester4\C\train\cmake-build-debug C:\Users\abc\OneDrive\Skole\Semester4\C\train\cmake-build-debug\CMakeFiles\train.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\git\train C:\git\train C:\git\train\cmake-build-debug C:\git\train\cmake-build-debug C:\git\train\cmake-build-debug\CMakeFiles\train.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/train.dir/depend
 

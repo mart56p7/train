@@ -6,15 +6,17 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/abc/OneDrive/Skole/Semester4/C/train/motrain.lib.c
+C:/git/train/motrain.lib.c
 stdio.h
 -
 stdlib.h
 -
 string.h
 -
+math.h
+-
 motrain.lib.h
-C:/Users/abc/OneDrive/Skole/Semester4/C/train/motrain.lib.h
+C:/git/train/motrain.lib.h
 
-C:/Users/abc/OneDrive/Skole/Semester4/C/train/motrain.lib.h
+C:/git/train/motrain.lib.h
 

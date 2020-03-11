@@ -37,6 +37,7 @@ MessageNode* getMessageQueue();
 void printMessageTree();
 void printMessage(Message *msg);
 
+Byte* convertMessage(Message *msg);
 //Something with Command getCommand();
 
 void sendBit(Byte bitval);
