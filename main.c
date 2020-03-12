@@ -1,8 +1,50 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "motrain.lib.h"
 
 void stuff(){
     printTrains();
+}
+
+void send(TMessage *tmsg){
+    if(tmsg->transmitting){
+        //Set transmissiontime
+        //set voltage low
+        tmsg->transmitting = 0;
+        return;
+    }
+    if(tmsg->preamble > 0){
+        sendBit(1);
+        tmsg->preamble--;
+    }
+    else{
+        if(tmsg->msg != NULL && tmsg->bytenum < tmsg->msg->len){
+            if(tmsg->bytepos == 8){
+                if(tmsg->bytenum+1 == tmsg->msg->len){
+                    //Set transmissiontime
+                    //set voltage high
+                    sendBit(1);
+                }
+                else{
+                    //Set transmissiontime
+                    //set voltage low
+                    sendBit(0);
+                }
+                tmsg->bytepos = 0;
+                tmsg->bytenum++;
+            }else{
+                sendBit(getBitNum(tmsg->msg->data[tmsg->bytenum], tmsg->bytepos));
+                //Set transmissiontime
+                //set voltage low or high
+                tmsg->bytepos++;
+            }
+        }
+        else{
+            if(tmsg->completed == 0){
+                tmsg->completed = 1;
+            }
+        }
+    }
 }
 
 int main() {
@@ -37,6 +79,7 @@ int main() {
     printMessageTree();
     pushMessage(4, msg4);
     printMessageTree();
+    /*
     Message *msg = popMessage();
     printMessage(msg);
     printMessageTree();
@@ -58,12 +101,26 @@ int main() {
         printf("msg val: %u\n", msg);
         printMessage(msg);
         printMessageTree();
-    }
+    }*/
 
+    while(getMessageQueue() > 0){
+        Message *msg = popMessage();
+        printMessage(msg);
+        printMessageTree();
+        TMessage* nmsg = newTMessage(msg);
+        while(nmsg->completed == 0){
+            send(nmsg);
+        }
+    }
     //convertMessage(newMessage(2, 120));
-    convertMessage(newMessage(30, 60));
-    Byte ca = 30;
-    Byte cb = 60;
-    printf("%un", ca ^ cb);
+    //convertMessage(newMessage(30, 60));
+    /*
+    Byte* bitlist = NULL;
+    int* bitlistsize = malloc(sizeof(int));
+    int* bitlistpos = malloc(sizeof(int));
+    *bitlistpos = 0;
+    */
+
+
 }
 

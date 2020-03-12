@@ -1,0 +1,185 @@
+void convertMessage(Message *msg, Byte *bitlist, int *bitlistsize);
+bool ListEmpty(Byte *bitlist);
+Byte ListPop(Byte *bitlist, int *bitlistposition, int *bitlistsize);
+//Something with Command getCommand();
+
+
+
+
+
+
+
+
+bool sendListEmpty(){
+    return sendlist == NULL;
+}
+
+bool ListEmpty(Byte *bitlist){
+    return bitlist == NULL;
+}
+
+Byte getBit(Byte byteval, Byte bitnum){
+    return (byteval & (1 << bitnum)) > 0;
+}
+
+Byte popSendList(){
+    if(sendposition < sendsize){
+        int bytenum = floor((float)sendposition / 8);
+        Byte retbit = getBit(*(sendlist + bytenum), 7 - sendposition % 8);
+        sendposition++;
+        return retbit;
+    }
+    else{
+        sendlist = NULL;
+        return 0;
+    }
+}
+
+Byte ListPop(Byte *bitlist, int *bitlistposition, int *bitlistsize){
+    if(*bitlistposition < *bitlistsize && bitlist != NULL){
+        int bytenum = floor((float)*bitlistposition / 8);
+        Byte retbit = getBit(*(sendlist + bytenum), 7 - *bitlistposition % 8);
+        (*bitlistposition)++;
+        if(*bitlistposition == *bitlistsize){
+            bitlist = NULL;
+        }
+        return retbit;
+    }
+    else{
+        bitlist = NULL;
+        return 0;
+    }
+}
+
+void convertMessage(Message *msg, Byte *bitlist, int *bitlistsize){
+    printf("Done..");
+    float val = 0;
+    val = 16 + (msg->len) * 9;
+    printf("Done.. %u", (int)val);
+    *bitlistsize = (int)val;
+    printf("Done..");
+    int bytestoallocate = ceil(val/8);
+    printf("Done..");
+    bitlist = calloc(bytestoallocate, sizeof(Byte));
+    printf("Done..");
+    //Reminder
+    int reminder = 0;
+    Byte reminderbyte = 0;
+    //Set preamble
+    *(bitlist+0) = 255;
+    *(bitlist+1) = 255;
+    Byte tmp = 0;
+    printf("Done..");
+    for(int i = 0; i < msg->len; i++){
+        tmp = msg->data[i] >> reminder;
+        tmp = tmp | reminderbyte;
+        if(reminder > 0){
+            reminderbyte = msg->data[i] << (8 - reminder);
+        }
+        *(bitlist+(i+2)) = tmp;
+        reminder++;
+        if(reminder == 8){
+            i++;
+            *(bitlist+(i+2)) = reminderbyte;
+            reminder = 0;
+            reminderbyte = 0;
+        }
+    }
+    printf("Done..");
+    if(reminder > 0){
+        reminderbyte = reminderbyte | (1 << (8-reminder));
+        *(bitlist+(bytestoallocate-1)) = reminderbyte;
+    }
+    else{
+        reminderbyte = 128;
+    }
+    printf("Done..");
+}
+
+Byte* convertMessage2(Message *msg){
+    float val = 0;
+    val = 16 + (msg->len) * 9;
+    sendsize = (int)val;
+    int bytestoallocate = ceil(val/8);
+    printf("%u\n", bytestoallocate);
+    sendlist = calloc(bytestoallocate, sizeof(Byte));
+    //Reminder
+    int reminder = 0;
+    Byte reminderbyte = 0;
+    //Set preamble
+    *(sendlist+0) = 255;
+    *(sendlist+1) = 255;
+    Byte myval = 255;
+    Byte tmp = 0;
+    for(int i = 0; i < msg->len; i++){
+        printf("shift %u: %u %u %u %u\n", i, msg->data[i], msg->data[i] >> reminder, msg->data[i], reminder);
+        tmp = msg->data[i] >> reminder;
+        printf("tmp : %u\n", tmp);
+        tmp = tmp | (reminderbyte << (8 - reminder));
+        printf("tmp val : %u %u\n", tmp, (reminderbyte << (8 - reminder)));
+        reminderbyte = msg->data[i] << (8 - reminder);
+        //reminderbyte = reminderbyte << reminder;
+
+        *(sendlist+(i+2)) = tmp;
+        reminder++;
+        if(reminder == 8){
+            i++;
+            *(sendlist+(i+2)) = reminderbyte;
+            reminder = 0;
+        }
+    }
+    if(reminder > 0){
+        *(sendlist+(bytestoallocate-1)) = reminderbyte;
+        printf("reminderbyte = %u", reminderbyte);
+    }
+    //printf("SENDLIST === %u\n", sendlist);
+
+    for(int i = 0; i < bytestoallocate; i++){
+        sendByte(*(sendlist+i));
+    }
+    printf("aaa\n\n");
+    for(int i = 0; i < 3; i++){
+        sendByte(msg->data[i]);
+    }
+    //printf("SENDLIST === %u\n", sendlist);
+    while(sendListEmpty() > 0){
+        printf("pop value = %u\n", popSendList());
+    }
+    return NULL;
+}
+
+
+
+
+
+
+
+/*
+ *
+ *     if((bitval & (1 << 0)) > 0){
+        //Send 1
+        printf("1\n");
+    }
+    else{
+        //Send 0
+        printf("0\n");
+    }
+void sendByte(Byte byteval){
+    for(int i = 7; i >= 0; i--){
+        if((byteval & (1 << i)) > 0){
+            //Send 1
+            printf("1\n");
+        }
+        else{
+            //Send 0
+            printf("0\n");
+        }
+    }
+}
+*/
+
+
+
+int sendsize = 0;
+int sendposition = 0;
+Byte *sendlist = NULL;

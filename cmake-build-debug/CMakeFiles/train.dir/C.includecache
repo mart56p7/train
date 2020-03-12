@@ -6,6 +6,14 @@
 
 #IncludeRegexTransform: 
 
+C:/git/train/main.c
+stdio.h
+-
+stdlib.h
+-
+motrain.lib.h
+C:/git/train/motrain.lib.h
+
 C:/git/train/motrain.lib.c
 stdio.h
 -
@@ -19,4 +27,6 @@ motrain.lib.h
 C:/git/train/motrain.lib.h
 
 C:/git/train/motrain.lib.h
+stdbool.h
+-
 

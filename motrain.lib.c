@@ -53,121 +53,24 @@ Byte commandready = 0;
 Byte curtrains = 0;
 Byte maxtrains = 5;
 Train *trains = NULL;
-//noptrain: tells which train to send nop command for next, this resets to 0 every curtrains.
-Byte noptrain = 0;
 
 MessageNode *messagequeue = NULL;
 //1 Indicates that a insert is in progress, then no element can be taken out of the msg queue.
 //0 indicates that its safe to take messages out of the queue.
 Byte messagequeuebusy = 0;
 
-int sendsize = 0;
-int sendposition = 0;
-Byte *sendlist = NULL;
 //************* GLOBAL VARIABLES: END **********************//
 
-int sendListEmpty(){
-    return (int)sendlist;
+TMessage* newTMessage(Message *msg){
+    TMessage *tmsg = malloc(sizeof(TMessage));
+    tmsg->msg = msg;
+    tmsg->preamble = 16;
+    tmsg->bytenum = 0;
+    tmsg->bytepos = 0;
+    tmsg->transmitting = 0;
+    tmsg->completed = 0;
 }
 
-Byte getBit(Byte byteval, Byte bitnum){
-    return (byteval & (1 << bitnum)) > 0;
-}
-
-Byte popSendList(){
-    if(sendposition < sendsize){
-        int bytenum = floor((float)sendposition / 8);
-        Byte retbit = getBit(*(sendlist + bytenum), 7 - sendposition % 8);
-        sendposition++;
-        return retbit;
-    }
-    else{
-        sendlist = NULL;
-        return 0;
-    }
-}
-
-Byte* convertMessage(Message *msg){
-    float val = 0;
-    val = 16 + (msg->len) * 9;
-    sendsize = (int)val;
-    int bytestoallocate = ceil(val/8);
-    printf("%u\n", bytestoallocate);
-    sendlist = calloc(bytestoallocate, sizeof(Byte));
-    //Reminder
-    int reminder = 0;
-    Byte reminderbyte = 0;
-    //Set preamble
-    *(sendlist+0) = 255;
-    *(sendlist+1) = 255;
-    Byte myval = 255;
-    Byte tmp = 0;
-    for(int i = 0; i < msg->len; i++){
-        printf("shift %u: %u %u %u %u\n", i, msg->data[i], msg->data[i] >> reminder, msg->data[i], reminder);
-        tmp = msg->data[i] >> reminder;
-        printf("tmp : %u\n", tmp);
-        tmp = tmp | (reminderbyte << (8 - reminder));
-        printf("tmp val : %u %u\n", tmp, (reminderbyte << (8 - reminder)));
-        reminderbyte = msg->data[i] << (8 - reminder);
-        //reminderbyte = reminderbyte << reminder;
-
-        *(sendlist+(i+2)) = tmp;
-        reminder++;
-        if(reminder == 8){
-            i++;
-            *(sendlist+(i+2)) = reminderbyte;
-            reminder = 0;
-        }
-    }
-    if(reminder > 0){
-        *(sendlist+(bytestoallocate-1)) = reminderbyte;
-        printf("reminderbyte = %u", reminderbyte);
-    }
-    //printf("SENDLIST === %u\n", sendlist);
-
-    for(int i = 0; i < bytestoallocate; i++){
-        sendByte(*(sendlist+i));
-    }
-    printf("aaa\n\n");
-    for(int i = 0; i < 3; i++){
-        sendByte(msg->data[i]);
-    }
-    //printf("SENDLIST === %u\n", sendlist);
-    while(sendListEmpty() > 0){
-        printf("pop value = %u\n", popSendList());
-    }
-    return NULL;
-}
-
-
-
-
-
-
-
-/*
- *
- *     if((bitval & (1 << 0)) > 0){
-        //Send 1
-        printf("1\n");
-    }
-    else{
-        //Send 0
-        printf("0\n");
-    }
-void sendByte(Byte byteval){
-    for(int i = 7; i >= 0; i--){
-        if((byteval & (1 << i)) > 0){
-            //Send 1
-            printf("1\n");
-        }
-        else{
-            //Send 0
-            printf("0\n");
-        }
-    }
-}
-*/
 void addTrain(Train train){
     //Check if train list has been initialized
     if(trains == NULL){
@@ -353,6 +256,10 @@ void sendBit(Byte bitval){
         //Send 0
         printf("0\n");
     }
+}
+
+bool getBitNum(Byte bitval, Byte bitnum){
+    return (bitval & (1 << bitnum)) > 0;
 }
 
 void sendByte(Byte byteval){
