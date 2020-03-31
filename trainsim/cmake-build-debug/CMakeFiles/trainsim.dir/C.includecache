@@ -6,12 +6,12 @@
 
 #IncludeRegexTransform: 
 
-C:/git/train/trainsim/train.sim.webapp.c
-train.sim.webapp.h
-C:/git/train/trainsim/train.sim.webapp.h
+C:/git/train/trainsim/main.c
 stdio.h
 -
-winsock2.h
+train.sim.webapp.h
+C:/git/train/trainsim/train.sim.webapp.h
+windows.h
 -
 
 C:/git/train/trainsim/train.sim.webapp.h

@@ -4,5 +4,5 @@
 
 #ifndef TRAINSIM_TRAIN_SIM_WEBAPP_H
 #define TRAINSIM_TRAIN_SIM_WEBAPP_H
-int init_socket();
+int serverStart(int port);
 #endif //TRAINSIM_TRAIN_SIM_WEBAPP_H
