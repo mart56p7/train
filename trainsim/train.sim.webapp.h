@@ -4,5 +4,14 @@
 
 #ifndef TRAINSIM_TRAIN_SIM_WEBAPP_H
 #define TRAINSIM_TRAIN_SIM_WEBAPP_H
-int serverStart(int port);
+int restServerStart(int port);
+int staticServerStart(int port);
+
+struct StringMessage{
+    char* msg;
+    int length;
+};
+
+typedef struct  StringMessage strmsg;
+
 #endif //TRAINSIM_TRAIN_SIM_WEBAPP_H

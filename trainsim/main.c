@@ -2,10 +2,10 @@
 #include "train.sim.webapp.h"
 #include <windows.h>
 
-DWORD WINAPI ThreadFunc(void* data) {
+DWORD WINAPI StaticServerRunner() {
     // Do stuff.  This will be the first function called on the new thread.
     // When this function returns, the thread goes away.  See MSDN for more details.
-    serverStart(80);
+    staticServerStart(8001);
     return 0;
 }
 
@@ -22,10 +22,8 @@ int main() {
 
     //https://stackoverflow.com/questions/1981459/using-threads-in-c-on-windows-simple-example
     //https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-createthread
-    HANDLE thread = CreateThread(NULL, 0, ThreadFunc, NULL, 0, NULL);
-    if (thread) {
-        // Optionally do stuff, such as wait on the thread.
-    }
-    serverStart(8001);
+    HANDLE thread = CreateThread(NULL, 0, StaticServerRunner, NULL, 0, NULL);
+    //we wait to create a lock so the program doesnt end
+    restServerStart(8002);
     return 0;
 }
