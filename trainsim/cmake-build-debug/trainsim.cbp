@@ -79,6 +79,12 @@
 		<Unit filename="C:/git/train/trainsim/main.c">
 			<Option target="trainsim"/>
 		</Unit>
+		<Unit filename="C:/git/train/trainsim/train.sim.webapp.c">
+			<Option target="trainsim"/>
+		</Unit>
+		<Unit filename="C:/git/train/trainsim/train.sim.webapp.h">
+			<Option target="trainsim"/>
+		</Unit>
 		<Unit filename="C:/git/train/trainsim/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

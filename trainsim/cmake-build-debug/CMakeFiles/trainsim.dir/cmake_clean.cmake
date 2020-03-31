@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/trainsim.dir/main.c.obj"
+  "CMakeFiles/trainsim.dir/train.sim.webapp.c.obj"
   "libtrainsim.dll.a"
   "trainsim.exe"
   "trainsim.exe.manifest"
