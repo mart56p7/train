@@ -1,0 +1,127 @@
+<html>
+<head>
+
+</head>
+<body>
+	<canvas id="mapper" width="1200" height="800" style="background-color: cyan; border: 1px solid black"></canvas>
+	<script>
+	// setup config variables and start the program
+	var canvas;
+	var context;
+	function init () {
+		canvas = document.getElementById('mapper');
+		context = canvas.getContext('2d');
+
+		//Initial map calculations
+		mapsize = calcRailPositions()
+		//This creates the initial map
+		createMap(canvas, mapsize);
+		//draw rails on map
+		drawMap(context);
+		//add trains to map
+	}
+/*
+	function drawRail(context, startx, starty, raillength, railangle){
+			context.beginPath();
+		context.moveTo(startx, starty);
+		//https://www.html5canvastutorials.com/tutorials/html5-canvas-quadratic-curves/
+		//https://en.wikipedia.org/wiki/B%C3%A9zier_curve#Quadratic_B.C3.A9zier_curves
+		
+		context.quadraticCurveTo(200, 100, 200, 100);
+		context.stroke();
+		
+		context.beginPath();
+		context.moveTo(startx, starty);
+		context.quadraticCurveTo(150, 50, 200, 100);
+		context.stroke();
+
+	}
+*/
+	//Length is defined in mm, 1mm = 1pixel
+	var rails = {
+					RailName1: {name: "RailName1", length: 100, angle: 45, next: "RailName2", previous: "RailName0"},
+					RailName2: {name: "RailName2", length: 100, angle: 45, next: "RailName3", previous: "RailName1"},
+					RailName3: {name: "RailName3", length: 100, angle: 45, next: "", previous: "RailName2"},
+					RailName0: {name: "RailName0", length: 100, angle: 45, next: "RailName1", previous: ""}
+				};
+
+	var railsonmap = {};
+
+	function calcRailPositions(){
+		//calculate start and end point for all rails, then calculate center
+		//Using distance to center, calculate map size and define starting and ending rail positions
+		first = true;
+		firstrail = {};
+		for (key in rails) {
+			if(first){
+				railsonmap[key] = {};
+				railsonmap[key]["rail"] = rails[key]
+				railsonmap[key]["map"] = {startx: 0, starty: 0, controlx: 100, controly: 100, endx: 200, endy: 200, color: "#FF0000"}
+				firstrail = rails[key];
+				first = false;
+			}
+		}
+		//We start inside a big map
+		railsonmap[firstrail["name"]]["map"] = {startx: 100, starty: 100, controlx: 150, controly: 150, endx: 200, endy: 300, color: "#FF0000"}
+		nextrail = firstrail["next"];
+		while(nextrail != "" && !(nextrail in railsonmap)){
+			railsonmap[nextrail] = {}
+			railsonmap[nextrail]["rail"] = rails[nextrail];
+			railsonmap[nextrail]["map"] = {startx: 0, starty: 0, controlx: 0, controly: 0, endx: 0, endy: 0, color: "#FF0000"}
+			nextrail = railsonmap[nextrail]["rail"]["next"]
+		}
+		previous = firstrail["previous"];
+		while(previous != "" && !(previous in railsonmap)){
+			railsonmap[previous] = {}
+			railsonmap[previous]["rail"] = rails[previous];
+			railsonmap[previous]["map"] = {startx: 0, starty: 0, controlx: 0, controly: 0, endx: 0, endy: 0, color: "#FF0000"}
+			previous = railsonmap[previous]["rail"]["previous"]
+		}
+		
+		return {width: 500, height: 500}
+	}
+	
+	function calcEndPoint(startx, starty, length, angle){
+		return {x: 0, y: 0}
+	}
+	
+	//Used for calculating the size of our map and initial rail position.
+	function createMap(canvas, mapsize){
+		//Resize canvas to fit map size
+		canvas.width = mapsize.width;
+		canvas.height = mapsize.height;
+	}
+	
+	//Draw all rails
+	function drawMap(context){
+		for (key in rails){
+			alert(key);
+			drawRail(railsonmap[key]["map"], context);
+		}
+	}
+	
+	//Draw a specific rail
+	function drawRail(rail, context){
+	alert("(" + rail["startx"] + ", " + rail["starty"] + ") " +  rail["controlx"] + " " + rail["controly"]);
+		context.beginPath();
+		context.moveTo(rail["startx"], rail["starty"]);
+		context.quadraticCurveTo(rail["controlx"], rail["controly"], rail["endx"], rail["endy"]);
+		context.strokeStyle = rail["color"];
+		context.stroke();
+	}
+	
+	//Update all trains
+	function updateTrains(){
+	
+	}
+	
+	//Used for updating the train position.
+	function updateTrain(train, rail, position){
+
+	}
+	
+	// wait for the HTML to load
+	document.addEventListener('DOMContentLoaded', init)
+	</script>
+</body>
+</html>

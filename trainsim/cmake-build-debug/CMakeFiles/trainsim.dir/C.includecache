@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/git/train/trainsim/train.sim.webapp.c
+train.sim.webapp.h
+C:/git/train/trainsim/train.sim.webapp.h
+stdio.h
+-
+winsock2.h
+-
+
+C:/git/train/trainsim/train.sim.webapp.h
+
